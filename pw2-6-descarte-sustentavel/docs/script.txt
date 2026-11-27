@@ -1,0 +1,25 @@
+-- Script SQL Server: banco EscolaDB e tabela de descartes eletronicos.
+-- Execute este script no SQL Server Management Studio (SSMS).
+
+IF DB_ID('EscolaDB') IS NULL
+BEGIN
+    CREATE DATABASE EscolaDB;
+END;
+GO
+
+USE EscolaDB;
+GO
+
+IF OBJECT_ID('dbo.descarte_eletronico', 'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.descarte_eletronico (
+        id BIGINT IDENTITY(1,1) PRIMARY KEY,
+        matricula_aluno VARCHAR(255) NOT NULL,
+        tipo_item VARCHAR(255) NOT NULL,
+        peso_gramas FLOAT NOT NULL,
+        pontos_gerados INT NULL,
+        validado BIT NULL,
+        CONSTRAINT CK_descarte_peso_positivo CHECK (peso_gramas > 0)
+    );
+END;
+GO
